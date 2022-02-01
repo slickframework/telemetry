@@ -1,10 +1,10 @@
 # Slick JSON API implementation package
 
-[![Latest Version](https://img.shields.io/github/release/slickframework/telemetry.svg?style=flat-square)](https://github.com/slickframework/json-api/releases)
+[![Latest Version](https://img.shields.io/github/release/slickframework/telemetry.svg?style=flat-square)](https://github.com/slickframework/telemetry/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://img.shields.io/travis/slickframework/telemetry/master.svg?style=flat-square)](https://travis-ci.org/slickframework/json-api)
-[![Quality Score](https://img.shields.io/scrutinizer/g/slickframework/telemetry/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/slickframework/json-api?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/slick/telemetry.svg?style=flat-square)](https://packagist.org/packages/slick/json-api)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/slickframework/telemetry/Continuous%20Integration?style=flat-square)](https://github.com/slickframework/telemetry/actions)
+[![Quality Score](https://img.shields.io/scrutinizer/g/slickframework/telemetry/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/slickframework/telemetry?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/slick/telemetry.svg?style=flat-square)](https://packagist.org/packages/slick/telemetry)
 
 ``slick/telemetry`` is a small telemetry library to send HTTP/Application metrics to a given log analysis server.
 
