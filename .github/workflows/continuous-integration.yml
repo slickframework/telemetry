@@ -47,7 +47,7 @@ jobs:
 
       - name: "Install latest dependencies"
         run: |
-          composer install ${{ env.COMPOSER_FLAGS }}
+          composer update ${{ env.COMPOSER_FLAGS }}
 
       - name: "Run tests"
         run: "composer test"
