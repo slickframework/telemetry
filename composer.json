@@ -1,0 +1,50 @@
+{
+    "name": "slick/telemetry",
+    "description": "A small telemetry library to send HTTP/Application metrics to a given log analysis server",
+    "type": "library",
+    "homepage": "https://github.com/slickframework/telemetry",
+    "require-dev": {
+        "monolog/monolog": "2.x-dev",
+        "phpspec/phpspec": "8.0.x-dev",
+        "squizlabs/php_codesniffer": "4.0.x-dev"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Slick\\Telemetry\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Filipe Silva",
+            "email": "silvam.filipe@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4|>=8",
+        "psr/event-dispatcher": "1.0.x-dev",
+        "psr/http-message": "1.0.x-dev",
+        "psr/log": "^1.1",
+        "slick/event": "1.1.x-dev",
+        "ext-json": "*"
+    },
+    "scripts": {
+        "test": "phpspec run --format=dot",
+        "check-style": "phpcs -p --standard=PSR12 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src",
+        "fix-style": "phpcbf -p --standard=PSR12 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev",
+            "dev-develop": "0.2-dev"
+        }
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}

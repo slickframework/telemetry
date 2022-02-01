@@ -1,0 +1,10 @@
+##### IDE && editors
+/.idea
+
+##### MacOS
+# General
+.DS_Store
+
+##### Composer
+composer.phar
+/vendor/

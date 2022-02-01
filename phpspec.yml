@@ -1,0 +1,4 @@
+suites:
+  slick_telemetry_suite:
+    namespace: Slick\Telemetry
+    psr4_prefix: Slick\Telemetry
