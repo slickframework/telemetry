@@ -50,7 +50,7 @@ final class PsrLoggerClient implements TelemetryClient
      */
     public function track(Trackable $trackableData): TelemetryClient
     {
-        $context = (array) $trackableData->context();
+        $context = array_merge((array) $this->context, (array) $trackableData->context());
         $message = $this->interpolate($trackableData->message(), $context);
         $this->log($trackableData->logLevel(), $message, $context);
         return $this;
