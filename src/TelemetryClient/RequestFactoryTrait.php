@@ -29,6 +29,7 @@ trait RequestFactoryTrait
      */
     public function beginRequest(string $message, string $path, iterable $context = []): Request
     {
+        $context = array_merge($context, ['start' => microtime(true)]);
         return new Request($message, $path, time(), 200, 0, $context);
     }
 
@@ -37,8 +38,15 @@ trait RequestFactoryTrait
      */
     public function endRequest(Request $request, int $statusCode = 200, iterable $context = []): TelemetryClient
     {
-        $duration = microtime(true) - (float) ($request->startTime() * 1000);
+        $start = $request->context()['start'] ?? (float)($request->startTime() * 1000);
+
+        $duration = ((float) microtime(true) - $start) * 1000;
         $context = array_merge((array) $request->context(), $context);
+
+        if (array_key_exists('start', $context)) {
+            unset($context['start']);
+        }
+
         $this->trackRequest(
             $request->message(),
             $request->path(),
