@@ -18,7 +18,7 @@ also applies the [semantic version 2.0.0](http://semver.org) specification.
 
 Via Composer
 
-``` bash
+```bash
 $ composer require slick/telemetry
 ```
 
@@ -30,14 +30,14 @@ of its [handlers]. Please visit [Monolog] project site on [GitHub] for more info
 
 To add `monolog\monolog` to you project run the following:
 
-``` shell
+```bash
 $ composer require monolog\monolog
 ```
 
 #### Create a telemetry client
 With a [PSR-3] logger we are now ready to create our client:
 
-``` php
+```php
 <?php
 
 namespace App;
@@ -59,7 +59,7 @@ There are 2 types of metric telemetry: single measurement and pre-aggregated met
 measurement is just a name and value. Pre-aggregated metric specifies minimum and maximum
 value of the metric in the aggregation interval and standard deviation of it.
 
-``` php
+```php
 <?php
 
 $telemetryClient->trackMetric("Open processes", 345); // measurement
@@ -74,7 +74,7 @@ $telemetryClient->trackMetric("Open processes", 345, context: ["region" => "nort
 Dependency represents an interaction of the application with a remote component such as SQL
 or an HTTP endpoint.
 
-``` php
+```php
 <?php
 
 // A SQL example of a dependency entry
@@ -96,7 +96,7 @@ $telemetryClient->trackDependency(
 #### Register an exception
 Exception represents a handled or unhandled exception that occurred during
 execution of the monitored application.
-``` php
+```php
 <?php
 // Handled exception
 try {
@@ -130,7 +130,7 @@ dependency for this library. [`slick/event`](https://github.com/slickframework/e
 is a simple PSR-14 event handling implementation library.
 We also recommend that event objects have to implement the ``JsonSerializable`` interface so that
 the data can be passed as context to the log service.
-``` php
+```php
 <?php
 
 namespace App;
@@ -162,15 +162,81 @@ $telemetryClient->trackEvent(new TaskWasFinished(34));
 An HTTP request can be used to register information of a request: path,
 duration, post data or headers can be registered here.
 
+##### Single call
+```php
+<?php
 
+$telemetryClient->trackRequest(
+    'create user',
+    '/users',
+    1643887671,
+    201,
+    276.4379,
+    $_REQUEST
+);
+```
+
+##### Request factory methods
+With these methods we can let the telemetry client calculate time and duration for us.
+This is done by registering the difference between `beginRequest()` and `endRequest()`
+method calls.
+
+Let's see an example:
+```php
+<?php
+// front-controller script
+$trackableRequest = $telemetryClient->beginRequest('create user', '/users', $_REQUEST);
+
+// front-controller execution code
+
+$telemetryClient->endRequest($trackableRequest, 201);
+```
+This code as the same effect as the one make with a single call
+to `TelemetryClient::trackRquest()` method
+
+#### Other features
+##### Message interpolation
+In all calls to `TelemetryClient::track()` or `TelemetryClient::log()` methods you set placeholders
+in the message parameter so that they can be replaced by values from the context array. You need to
+follow these rules:
+ - Placeholder names MUST correspond to keys in the context array;
+ - Placeholder names MUST be delimited with a single opening brace `{` and a single closing brace `}`;
+ - There MUST NOT be any whitespace between the delimiters and the placeholder name.
+
+```php
+<?php
+
+$telemetryClient->notice(
+    "User {name}, was suspended because {reason}.",
+    ["name" => "John Doe", "he had too many login attempts"]
+);
+
+// Resulting message will be:
+// User John Doe, was suspended because he had too many login attempts.
+```
+
+##### Log level override
+All methods have a [logLevel] assign by default. For all the default is `LogLevel::INFO`
+except for `TrackableException` where the default is `LogLevel::ERROR`.
+
+In addition `Dependency` and `Request` can have `LogLevel::WARNING` if its `isSuccessfull` property
+is false.
+
+You can change this log level if you pass the `level` key to the context parameter:
+````php
+<?php
+
+// Override LogLevel::INFO with LogLevel::WARNING in a metric register
+$telemeteryClient->trackMetric('free space', 20, context: ['level' => LogLevel::WARNING]);
+````
 
 ## Testing
 
 We use [PHPSpec](http://www.phpspec.net/) for unit testing.
 
-``` shell
-# unit tests
-$ vendor/bin/phpspec
+```bash
+# unit tests with phpspec
+$ composer test
 ```
 
 ## Contributing
@@ -195,3 +261,4 @@ The MIT License (MIT). Please see [License File](LICENSE) for more information.
 [handlers]: https://github.com/Seldaek/monolog/blob/main/doc/02-handlers-formatters-processors.md
 [Monolog]: https://github.com/Seldaek/monolog
 [GitHub]: https://github.com/Seldaek/monolog
+[logLevel]: https://github.com/php-fig/log/blob/master/src/LogLevel.php
