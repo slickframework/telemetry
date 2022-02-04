@@ -1,6 +1,6 @@
 # Slick JSON API implementation package
 
-[![Latest Version](https://img.shields.io/github/release/slickframework/telemetry.svg?style=flat-square)](https://github.com/slickframework/telemetry/releases)
+[![GitHub release (latest SemVer)](https://img.shields.io:/github/v/release/slickframework/telemetry?style=flat-square)](https://github.com/slickframework/telemetry/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/slickframework/telemetry/Continuous%20Integration?style=flat-square)](https://github.com/slickframework/telemetry/actions)
 [![Quality Score](https://img.shields.io/scrutinizer/g/slickframework/telemetry/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/slickframework/telemetry?branch=master)
