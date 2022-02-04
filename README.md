@@ -128,7 +128,7 @@ In order to use this telemetry item, you need to create events with
 [`slick/event`](https://github.com/slickframework/event), witch is a required
 dependency for this library. [`slick/event`](https://github.com/slickframework/event)
 is a simple PSR-14 event handling implementation library.
-We also recommend that event objects have to implement the ``JsonSerializable`` interface so that
+We also recommend that event objects should implement the ``JsonSerializable`` interface so that
 the data can be passed as context to the log service.
 ```php
 <?php
