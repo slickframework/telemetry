@@ -42,6 +42,7 @@ final class PsrLoggerClient implements TelemetryClient
      */
     public function log($level, $message, array $context = array())
     {
+        list($level, $context) = $this->overrideLevel($level, $context);
         $this->logger->log($level, $message, $context);
     }
 
@@ -76,5 +77,15 @@ final class PsrLoggerClient implements TelemetryClient
 
         // interpolate replacement values into the message and return
         return strtr($message, $replace);
+    }
+
+    private function overrideLevel($level, array $context): array
+    {
+        if (array_key_exists('level', $context)) {
+            $level = $context['level'];
+            unset($context['level']);
+        }
+
+        return [$level, $context];
     }
 }

@@ -211,6 +211,25 @@ class PsrLoggerClientSpec extends ObjectBehavior
         }
     }
 
+    function it_can_override_the_log_level(LoggerInterface $logger)
+    {
+        $message = 'Memory';
+        $value = 234632;
+        $count = 10;
+        $min = 234600;
+        $max = 234690;
+        $stdDev = 34;
+        $this->trackMetric($message, $value, $count, $min, $max, $stdDev, ['level' => LogLevel::WARNING]);
+        $logger->log(
+            LogLevel::WARNING,
+            $message,
+            array_merge(
+                ['label' => Trackable::LABEL_METRIC],
+                compact('value', 'count', 'min', 'max', 'stdDev')
+            )
+        )->shouldHaveBeenCalled();
+    }
+
 }
 
 class EventWasUsed extends AbstractEvent implements SlickEvent, \JsonSerializable

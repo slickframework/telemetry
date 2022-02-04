@@ -14,7 +14,7 @@ namespace Slick\Telemetry\TelemetryClient;
 use Psr\Log\LoggerInterface;
 use Slick\Event\Event;
 use Slick\Telemetry\Model\Dependency;
-use Slick\Telemetry\Model\Event as TrackabkeEvent;
+use Slick\Telemetry\Model\Event as TrackableEvent;
 use Slick\Telemetry\Model\ExceptionTrackable;
 use Slick\Telemetry\Model\Metric;
 use Slick\Telemetry\Model\PageView;
@@ -88,7 +88,7 @@ trait TelemetryClientTrait
         iterable $context = []
     ): TelemetryClient {
         $this->track(
-            new Metric($message, $value, $count, $min, $max, $stdDev)
+            new Metric($message, $value, $count, $min, $max, $stdDev, $context)
         );
         return $this;
     }
@@ -98,7 +98,7 @@ trait TelemetryClientTrait
      */
     public function trackEvent(Event $event, iterable $context = []): TelemetryClient
     {
-        $this->track(new TrackabkeEvent($event, $context));
+        $this->track(new TrackableEvent($event, $context));
         return $this;
     }
 
