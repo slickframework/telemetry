@@ -40,7 +40,7 @@ final class PsrLoggerClient implements TelemetryClient
     /**
      * @inheritDoc
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = array()): void
     {
         list($level, $context) = $this->overrideLevel($level, $context);
         $this->logger->log($level, $message, $context);
