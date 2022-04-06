@@ -239,7 +239,7 @@ class EventWasUsed extends AbstractEvent implements SlickEvent, \JsonSerializabl
         parent::__construct();
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return 'it runs';
     }
