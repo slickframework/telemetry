@@ -22,6 +22,12 @@ Via Composer
 $ composer require slick/telemetry
 ```
 
+If you need to use `slick/telemetry` with version 7.4.x of PHP please do de following
+
+```bash
+$ composer require slick/telemetry:^1.0
+```
+
 ## Usage
 To start using the telemetry logger you will need a [PSR-3] implementation that will
 deliver the information to your preferred log system.<br />
